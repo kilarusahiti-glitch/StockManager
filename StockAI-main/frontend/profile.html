@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="nav-title">📊 My Portfolio</h1>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="navigate('home')">Back</button>
+      <button class="nav-btn logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <main class="page-container">
+    <section class="summary-card">
+      <h3>Portfolio Summary</h3>
+      <div class="summary-grid">
+        <div>
+          <span>Total Invested</span>
+          <strong>₹<span id="total-invested">0</span></strong>
+        </div>
+        <div>
+          <span>Current Value</span>
+          <strong>₹<span id="current-value">0</span></strong>
+        </div>
+        <div>
+          <span>Profit / Loss</span>
+          <strong>
+            ₹<span id="profit-loss">0</span>
+            <span id="direction">↑</span>
+          </strong>
+        </div>
+      </div>
+    </section>
+    <h3 class="section-title">Your Stocks</h3>
+    <div id="portfolio" class="cards-container"></div>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    function renderPortfolio(data) {
+      let totalInvested = 0, totalCurrent = 0;
+      data.stocks.forEach(s => {
+        totalInvested += s.invested;
+        totalCurrent += s.current_value;
+      });
+      const profit = totalCurrent - totalInvested;
+      document.getElementById("total-invested").innerText = totalInvested.toFixed(2);
+      document.getElementById("current-value").innerText = totalCurrent.toFixed(2);
+      document.getElementById("profit-loss").innerText = profit.toFixed(2);
+      document.getElementById("direction").innerText = profit >=0 ? "↑" : "↓";
+      document.getElementById("portfolio").innerHTML =
+        data.stocks.map(p => `
+        <div class="card">
+          <p><b>${p.symbol}</b></p>
+          <p>Qty: ${p.quantity}</p>
+          <p>Invested: ₹${p.invested.toFixed(2)}</p>
+          <p>Current: ₹${p.current_value.toFixed(2)}</p>
+          <p>Profit: ₹${(p.current_value - p.invested).toFixed(2)}</p>
+        </div>
+      `).join("");
+    }
+  </script>
+  <script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+  </script>
+</body>
+</html>

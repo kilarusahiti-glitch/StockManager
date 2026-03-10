@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - Stock AI</title>
+  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="nav-title">📈 StockAI</h1>
+    <div class="nav-actions">
+      <button class="nav-btn logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <div class="container">
+    <header class="header">
+      <h1>👋 Welcome, <span id="user">Trader</span></h1>
+      <p>Your AI-powered stock assistant</p>
+    </header>
+    <div class="card-grid">
+      <div class="card buy" onclick="navigate('buy')">
+        <h2>💰 Buy Stocks</h2>
+        <p>Invest smartly with AI insights</p>
+      </div>
+      <div class="card sell" onclick="navigate('sell')">
+        <h2>💸 Sell Stocks</h2>
+        <p>Exit at the right time</p>
+      </div>
+      <div class="card portfolio" onclick="navigate('profile')">
+        <h2>📊 My Portfolio</h2>
+        <p>Track your growth</p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+  const user = localStorage.getItem("loggedInUser");
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    document.getElementById("user").innerText = user;
+  }
+  function navigate(page) {
+    window.location.href = page + ".html";
+  }
+  </script>
+  <script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+  </script>
+</body>
+</html>

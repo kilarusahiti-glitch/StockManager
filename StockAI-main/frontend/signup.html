@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 90px 20px 20px; 
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .nav-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .nav-btn {
+      border: none;
+      background: #667eea;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .nav-btn:hover {
+      background: #5563d1;
+    }
+    .signup-card {
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <h1 class="nav-title">📈 StockAI</h1>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="goBack()">Back</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card signup-card shadow-lg p-4">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Create Account</h3>
+
+            <form onsubmit="signup(event)">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name" placeholder="Full Name">
+                <label for="name">Full Name</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" placeholder="Email">
+                <label for="email">Email address</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="password">Password</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                <label for="confirmPassword">Confirm Password</label>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="terms">
+                <label class="form-check-label" for="terms">
+                  I agree to the Terms & Conditions
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-2">
+                Sign Up
+              </button>
+            </form>
+
+            <p class="text-center mt-3">
+              Already have an account?
+              <a href="login.html" class="text-decoration-none">Login</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+  <script>
+    function signup(event) {
+      event.preventDefault();
+      const username = document.getElementById("name").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      const terms = document.getElementById("terms").checked;
+      if (!username || !password || !confirmPassword) {
+        alert("All fields are required");
+        return;
+      }
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return;
+      }
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+      if (!terms) {
+        alert("You must agree to the terms & conditions");
+        return;
+      }
+      fetch("http://127.0.0.1:5000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, confirm_password: confirmPassword })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        if (data.message === "Signup successful") {
+          window.location.href = "login.html";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

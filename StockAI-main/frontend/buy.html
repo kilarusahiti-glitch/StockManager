@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy Stocks</title>
+  <link rel="stylesheet" href="buy.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="nav-title">📈 Buy Stocks</h1>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="navigate('home')">Back</button>
+      <button class="nav-btn logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <input id="amount" placeholder="Enter amount">
+  <button onclick="getBuySuggestions()">Get Suggestions</button>
+  <h3 id="topHeading" class="hidden">🏆 Top 2 Picks</h3>
+  <div id="top-picks" class="cards-container"></div>
+  <h3 id="otherHeading" class="hidden">Other Suggestions</h3>
+  <div id="suggestions" class="cards-container"></div>
+  <script src="script.js"></script>
+  <script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+  </script>
+</body>
+</html>

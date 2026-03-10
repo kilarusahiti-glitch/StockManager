@@ -1,0 +1,222 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-card {
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card login-card shadow-lg p-4">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Login</h3>
+            <form onsubmit="login(event)">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" placeholder="Name">
+                <label>UserName</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label>Password</label>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+            </form>
+            <p class="text-center mt-3">Don't have an account?<a href="signup.html" class="text-decoration-none">Sign Up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message === "Login successful") {
+          localStorage.setItem("loggedInUser", username);
+          window.location.href = "home.html";
+        } else {
+          alert(data.message);
+        }
+      });
+    }
+  </script>
+  <script>
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap (only for form) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 90px 20px 20px; /* space for fixed navbar */
+    }
+
+    /* SAME NAVBAR AS SIGNUP / BUY */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .nav-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #4a4a4a;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      border: none;
+      background: #667eea;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #5563d1;
+    }
+
+    .login-card {
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ NAVBAR -->
+  <nav class="navbar">
+    <h1 class="nav-title">📈 StockAI</h1>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="goBack()">Back</button>
+    </div>
+  </nav>
+
+  <!-- ✅ LOGIN FORM -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card login-card shadow-lg p-4">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Login</h3>
+
+            <form onsubmit="login(event)">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+                <label>Username</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label>Password</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-2">
+                Login
+              </button>
+            </form>
+
+            <p class="text-center mt-3">
+              Don't have an account?
+              <a href="signup.html" class="text-decoration-none">Sign Up</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function goBack() {
+      window.location.href = "index.html";
+    }
+
+    function login(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message === "Login successful") {
+          localStorage.setItem("loggedInUser", username);
+          window.location.href = "home.html";
+        } else {
+          alert(data.message);
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

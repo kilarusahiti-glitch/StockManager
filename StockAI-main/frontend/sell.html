@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Stocks</title>
+  <link rel="stylesheet" href="sell.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="nav-title">📈 Sell Stocks</h1>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="navigate('home')">Back</button>
+      <button class="nav-btn logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <h3 id="topHeading" class="hidden">🏆 Top 2 Stocks to Sell</h3>
+  <div id="top-picks" class="cards-container"></div>
+  <h3 id="otherHeading" class="hidden">Other Stocks</h3>
+  <div id="portfolio" class="cards-container"></div>
+  <script src="script.js"></script>
+  <script>
+    function renderSellPage(data) {
+    const topHeading = document.getElementById("topHeading");
+    const otherHeading = document.getElementById("otherHeading");
+    const topPicks = document.getElementById("top-picks");
+    const portfolio = document.getElementById("portfolio");
+    topPicks.innerHTML = "";
+    portfolio.innerHTML = "";
+    if (!data.stocks || data.stocks.length === 0) {
+      topHeading.classList.add("hidden");
+      otherHeading.classList.add("hidden");
+      portfolio.innerHTML = `
+        <div class="empty-state">
+          <h3 class="none">📉 No stocks to sell</h3>
+          <p>Please buy stocks first.</p>
+          <button onclick="navigate('buy')">Buy Stocks</button>
+        </div>
+        `;
+      return;
+    }
+    topHeading.classList.remove("hidden");
+    otherHeading.classList.remove("hidden");
+    data.stocks.sort(
+      (a, b) => (b.current_value - b.invested) - (a.current_value - a.invested)
+    );
+    topPicks.innerHTML = data.stocks.slice(0, 2).map(s => `
+      <div class="card">
+        <p><b>${s.symbol}</b></p>
+        <p>Qty: ${s.quantity}</p>
+        <p>Invested: ₹${s.invested.toFixed(2)}</p>
+        <p>Current: ₹${s.current_value.toFixed(2)}</p>
+        <p class="${s.current_value - s.invested >= 0 ? 'profit' : 'loss'}">
+            Profit/Loss: ₹${(s.current_value - s.invested).toFixed(2)}
+        </p>
+        <input id="sell-${s.symbol}" type="number" min="1" max="${s.quantity}" value="1">
+        <button onclick="sellStock('${s.symbol}', document.getElementById('sell-${s.symbol}').value)">Sell</button>
+      </div>
+    `).join("");
+    portfolio.innerHTML = data.stocks.slice(2).map(s => `
+      <div class="card">
+        <p><b>${s.symbol}</b></p>
+        <p>Qty: ${s.quantity}</p>
+        <p>Invested: ₹${s.invested.toFixed(2)}</p>
+        <p>Current: ₹${s.current_value.toFixed(2)}</p>
+        <p class="${s.current_value - s.invested >= 0 ? 'profit' : 'loss'}">
+            Profit/Loss: ₹${(s.current_value - s.invested).toFixed(2)}
+        </p>
+        <input id="sell-${s.symbol}" type="number" min="1" max="${s.quantity}" value="1">
+        <button onclick="sellStock('${s.symbol}', document.getElementById('sell-${s.symbol}').value)">Sell</button>
+      </div>
+    `).join("");
+    }
+  </script>
+  <script>
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+  </script>
+</body>
+</html>

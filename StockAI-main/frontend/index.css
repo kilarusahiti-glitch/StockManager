@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background: #f7f8fc;
+  color: #222;
+}
+.navbar {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+.logo {
+  font-weight: 600;
+  font-size: 22px;
+}
+.nav-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+.btn-primary {
+  background: #6c7cff;
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 20px;
+}
+.btn-outline {
+  border: 2px solid #6c7cff;
+  color: #6c7cff !important;
+  padding: 7px 16px;
+  border-radius: 20px;
+}
+.btn-outline-light {
+  border: 2px solid white;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+}
+.hero {
+  min-height: 90vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("https://img.freepik.com/free-photo/panoramic-view-dubai-city-illuminated-neon-spectrum_23-2151305340.jpg")
+    no-repeat center center / cover;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+  color: white;
+}
+.hero-content {
+  max-width: 600px;
+}
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+.hero p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+.hero-actions a {
+  margin-right: 15px;
+}
+.section {
+  padding: 70px 40px;
+  text-align: center;
+}
+.section.dark {
+  background: #1f2233;
+  color: white;
+}
+.section h2 {
+  margin-bottom: 40px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+.step {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 14px;
+  width: 220px;
+}
+.step span {
+  font-size: 26px;
+  font-weight: bold;
+}
+.why-list {
+  list-style: none;
+  max-width: 500px;
+  margin: auto;
+}
+.why-list li {
+  margin-bottom: 12px;
+}
+.faq {
+  max-width: 700px;
+  margin: auto;
+  text-align: left;
+}
+.faq-item {
+  margin-bottom: 20px;
+}
+.cta {
+  padding: 60px;
+  background: #6c7cff;
+  color: white;
+  text-align: center;
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
